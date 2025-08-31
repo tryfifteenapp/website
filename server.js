@@ -1,29 +1,23 @@
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
+const { createClient } = require('@supabase/supabase-js');
+const config = require('./config');
 
 const app = express();
 const PORT = 3000;
+
+// Supabase configuration
+const supabaseUrl = config.supabase.url;
+const supabaseKey = config.supabase.serviceRoleKey;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.static('.')); // Serve static files from current directory
 
-// Check if CSV file exists, if not create it with headers
-function initializeCSV() {
-    if (!fs.existsSync('waitlist.csv')) {
-        const headers = 'email,timestamp\n';
-        fs.writeFileSync('waitlist.csv', headers);
-        console.log('Created new waitlist.csv file with headers');
-    }
-}
-
-// Initialize CSV file
-initializeCSV();
-
 // Route to handle email submissions
-app.post('/api/submit-email', (req, res) => {
+app.post('/api/submit-email', async (req, res) => {
     try {
         const { email } = req.body;
         
@@ -34,23 +28,37 @@ app.post('/api/submit-email', (req, res) => {
             });
         }
 
-        const timestamp = new Date().toISOString();
-        const csvRow = `${email},${timestamp}\n`;
-        
-        // Append to CSV file
-        fs.appendFileSync('waitlist.csv', csvRow);
+        // Insert email into Supabase database
+        const { data, error } = await supabase
+            .from('waitlist_emails')
+            .insert([
+                { 
+                    email: email,
+                    created_at: new Date().toISOString()
+                }
+            ])
+            .select();
 
-        console.log(`Email added to CSV: ${email} at ${timestamp}`);
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).json({ 
+                success: false, 
+                message: 'Error saving email to database',
+                error: error.message
+            });
+        }
+
+        console.log(`Email added to database: ${email}`);
         
         res.json({ 
             success: true, 
             message: 'Email added to waitlist successfully',
             email: email,
-            timestamp: timestamp
+            timestamp: data[0].created_at
         });
 
     } catch (error) {
-        console.error('Error writing to CSV:', error);
+        console.error('Error saving email:', error);
         res.status(500).json({ 
             success: false, 
             message: 'Error saving email to waitlist' 
@@ -59,34 +67,30 @@ app.post('/api/submit-email', (req, res) => {
 });
 
 // Route to get all emails (for viewing)
-app.get('/api/emails', (req, res) => {
+app.get('/api/emails', async (req, res) => {
     try {
-        if (fs.existsSync('waitlist.csv')) {
-            const csvData = fs.readFileSync('waitlist.csv', 'utf8');
-            const lines = csvData.trim().split('\n');
-            const headers = lines[0].split(',');
-            const emails = lines.slice(1).map(line => {
-                const values = line.split(',');
-                return {
-                    email: values[0],
-                    timestamp: values[1]
-                };
-            });
-            
-            res.json({ 
-                success: true, 
-                count: emails.length,
-                emails: emails 
-            });
-        } else {
-            res.json({ 
-                success: true, 
-                count: 0,
-                emails: [] 
+        const { data, error } = await supabase
+            .from('waitlist_emails')
+            .select('email, created_at')
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).json({ 
+                success: false, 
+                message: 'Error reading from database',
+                error: error.message
             });
         }
+
+        res.json({ 
+            success: true, 
+            count: data.length,
+            emails: data 
+        });
+
     } catch (error) {
-        console.error('Error reading CSV:', error);
+        console.error('Error reading emails:', error);
         res.status(500).json({ 
             success: false, 
             message: 'Error reading waitlist data' 
@@ -99,4 +103,6 @@ app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
     console.log(`📧 Email submission endpoint: http://localhost:${PORT}/api/submit-email`);
     console.log(`👀 View emails endpoint: http://localhost:${PORT}/api/emails`);
+    console.log(`🗄️  Connected to Supabase database`);
 });
+
