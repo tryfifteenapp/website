@@ -1,0 +1,21 @@
+{
+  "colors" : [
+    {
+      "color" : {
+        "color-space" : "srgb",
+        "components" : {
+          "alpha" : "1.000",
+                  "blue" : "0.400",
+        "green" : "0.400",
+        "red" : "0.700"
+        }
+      },
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "instructions" : "Custom red color for unproductive activities",
+    "version" : 1
+  }
+}

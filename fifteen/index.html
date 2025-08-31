@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fifteen - Master Your Day in 15-Minute Blocks</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="logo-text">fifteen.</span>
+                </div>
+                <h1 class="hero-title">
+                    Master Your Day in
+                    <span class="highlight">15-Minute Blocks</span>
+                </h1>
+                <p class="hero-description">
+                    Transform how you track productivity. Every 15 minutes becomes a building block for your most successful days.
+                </p>
+                <div class="hero-actions">
+                    <div class="waitlist-form-inline">
+                        <form onsubmit="handleWaitlistSubmit(event)">
+                            <input type="email" name="email" placeholder="Email" required>
+                            <button type="submit" class="btn-primary">Join Waitlist</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+                                    <div class="hero-visual">
+                <div class="before-after-buttons">
+                    <button class="option-btn before-btn active" onclick="showBefore()">Before</button>
+                    <button class="option-btn after-btn" onclick="showAfter()">After</button>
+                </div>
+                
+                <div class="before-after-content">
+                    <div class="option-content before-content active">
+                        <div class="placeholder-screenshot">
+                            <img src="excel.png" alt="Excel spreadsheet" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px; margin: -2px;">
+                        </div>
+                    </div>
+                    
+                    <div class="option-content after-content">
+                        <div class="iphone-frame">
+                            <div class="iphone-notch"></div>
+                            <div class="iphone-screen">
+                                <div class="app-mockup">
+                            <div class="app-header">
+                                <div class="app-logo">
+                                    <span class="app-name">fifteen.</span>
+                                </div>
+                                <div class="calendar-icon"></div>
+                            </div>
+                            
+                            <div class="summary-section">
+                                <h3 class="summary-title">Today</h3>
+                                <p class="summary-stats">42 / 64 blocks logged</p>
+                                
+                                <div class="stats-grid">
+                                    <div class="stat-item productive">
+                                        <div class="stat-percentage">25%</div>
+                                        <div class="stat-label">Productive</div>
+                                        <div class="stat-time">4h</div>
+                                    </div>
+                                    <div class="stat-item life">
+                                        <div class="stat-percentage">17%</div>
+                                        <div class="stat-label">Life</div>
+                                        <div class="stat-time">2.8h</div>
+                                    </div>
+                                    <div class="stat-item unproductive">
+                                        <div class="stat-percentage">23%</div>
+                                        <div class="stat-label">Unproductive</div>
+                                        <div class="stat-time">3.8h</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="progress-bar">
+                                    <div class="progress-segment productive" style="width: 25%"></div>
+                                    <div class="progress-segment life" style="width: 17%"></div>
+                                    <div class="progress-segment unproductive" style="width: 23%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="time-blocks-list">
+                                <div class="time-block-item productive">
+                                    <div class="block-dot productive"></div>
+                                    <div class="block-time">08:00 - 08:15</div>
+                                    <div class="block-activity">
+                                        <span class="activity-name">Side Hustle</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="time-block-item life">
+                                    <div class="block-dot life"></div>
+                                    <div class="block-time">08:15 - 08:30</div>
+                                    <div class="block-activity">
+                                        <span class="activity-name">Chores</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="time-block-item unproductive">
+                                    <div class="block-dot unproductive"></div>
+                                    <div class="block-time">08:30 - 08:45</div>
+                                    <div class="block-activity">
+                                        <span class="activity-name">TikTok</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="time-block-item unproductive">
+                                    <div class="block-dot unproductive"></div>
+                                    <div class="block-time">08:45 - 09:00</div>
+                                    <div class="block-activity">
+                                        <span class="activity-name">YouTube</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
