@@ -819,6 +819,11 @@ body {
 
 
 
+/* Mobile waitlist section - hidden on desktop */
+.mobile-waitlist {
+    display: none;
+}
+
 /* Responsive Design */
 /* Basic responsive design rules */
 @media (max-width: 768px) {
@@ -843,14 +848,9 @@ body {
         flex-direction: column;
     }
     
-    /* Create separate waitlist section that appears last */
+    /* Hide waitlist form in hero section on mobile */
     .hero-actions {
-        order: 3;
-        margin-top: 2rem;
-        margin-bottom: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: none;
     }
     
     .hero-title {
@@ -987,6 +987,33 @@ body {
     
     .waitlist h2 {
         font-size: 2rem;
+    }
+    
+    /* Mobile-only waitlist section at bottom */
+    .mobile-waitlist {
+        display: block;
+        padding: 3rem 1rem;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        text-align: center;
+        margin-top: 2rem;
+    }
+    
+    .mobile-waitlist h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 1rem;
+    }
+    
+    .mobile-waitlist p {
+        font-size: 1.125rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 2rem;
+    }
+    
+    .mobile-waitlist .waitlist-form-inline {
+        max-width: 400px;
+        margin: 0 auto;
     }
 }
 
