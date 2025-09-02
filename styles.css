@@ -823,10 +823,24 @@ body {
 /* Basic responsive design rules */
 @media (max-width: 768px) {
     .hero-container {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 2rem;
         text-align: center;
         padding: 0 1rem;
+    }
+    
+    /* Reorder mobile layout: visual first, then content */
+    .hero-visual {
+        order: 1;
+        margin-top: 0;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .hero-content {
+        order: 2;
     }
     
     .hero-title {
@@ -866,9 +880,7 @@ body {
         font-size: 1rem;
     }
     
-    .hero-visual {
-        margin-top: 1rem;
-    }
+
     
     .before-after-buttons {
         position: relative;
@@ -877,9 +889,11 @@ body {
         transform: none;
         margin-bottom: 1.5rem;
         pointer-events: auto;
+        order: 1;
     }
     
     .before-after-content {
+        order: 2;
         margin-top: 0;
         height: auto;
         min-height: 400px;
