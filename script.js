@@ -29,30 +29,46 @@ function showAfter() {
 }
 
 // Handle waitlist form submission
-function handleWaitlistSubmit(event) {
+async function handleWaitlistSubmit(event) {
     event.preventDefault();
     
     const email = event.target.querySelector('input[name="email"]').value;
+    const submitButton = event.target.querySelector('button[type="submit"]');
     
     if (email) {
-        // Show success message
-        showMessage('Thanks! You\'ve been added to the waitlist.', 'success');
-        
         // Log the email to console (for development purposes)
         console.log('Email collected:', email);
         
-        // Add email to CSV data
-        addEmailToCSV(email);
+        // Show loading state
+        const originalButtonText = submitButton.textContent;
+        submitButton.textContent = 'Adding...';
+        submitButton.disabled = true;
         
-        // Reset form
-        event.target.reset();
+        try {
+            // Add email to server and wait for response
+            const success = await addEmailToCSV(email);
+            
+            if (success) {
+                // Show success message only if server request succeeded
+                showMessage('Thanks! You\'ve been added to the waitlist.', 'success');
+                // Reset form
+                event.target.reset();
+            } else {
+                // Show error message if server request failed
+                showMessage('Sorry, there was an error. Please try again.', 'error');
+            }
+        } finally {
+            // Restore button state
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+        }
     }
 }
 
 // Send email to backend server
 async function addEmailToCSV(email) {
     try {
-        const response = await fetch('http://localhost:3000/api/submit-email', {
+        const response = await fetch('/api/submit-email', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,12 +79,15 @@ async function addEmailToCSV(email) {
         const data = await response.json();
         
         if (data.success) {
-            console.log('Email successfully added to CSV:', data.email, data.timestamp);
+            console.log('Email successfully added to database:', data.email, data.timestamp);
+            return true;
         } else {
             console.error('Error from server:', data.message);
+            return false;
         }
     } catch (error) {
         console.error('Error sending email to server:', error);
+        return false;
     }
 }
 

@@ -4,7 +4,6 @@ const { createClient } = require('@supabase/supabase-js');
 const config = require('./config');
 
 const app = express();
-const PORT = 3000;
 
 // Supabase configuration
 const supabaseUrl = config.supabase.url;
@@ -98,11 +97,17 @@ app.get('/api/emails', async (req, res) => {
     }
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log(`📧 Email submission endpoint: http://localhost:${PORT}/api/submit-email`);
-    console.log(`👀 View emails endpoint: http://localhost:${PORT}/api/emails`);
-    console.log(`🗄️  Connected to Supabase database`);
-});
+// Export the app for Vercel
+module.exports = app;
+
+// Start server locally (for development)
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`🚀 Server running on http://localhost:${PORT}`);
+        console.log(`📧 Email submission endpoint: http://localhost:${PORT}/api/submit-email`);
+        console.log(`👀 View emails endpoint: http://localhost:${PORT}/api/emails`);
+        console.log(`🗄️  Connected to Supabase database`);
+    });
+}
 

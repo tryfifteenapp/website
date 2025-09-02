@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "functions": {
+    "api/submit-email.js": {
+      "maxDuration": 10
+    },
+    "api/emails.js": {
+      "maxDuration": 10
+    }
+  }
+}
