@@ -993,7 +993,7 @@ body {
     .mobile-waitlist {
         display: block;
         padding: 3rem 1rem;
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        background: var(--text-primary);
         text-align: center;
         margin-top: 2rem;
     }
@@ -1007,13 +1007,33 @@ body {
     
     .mobile-waitlist p {
         font-size: 1.125rem;
-        color: rgba(255, 255, 255, 0.9);
+        color: var(--text-light);
         margin-bottom: 2rem;
     }
     
     .mobile-waitlist .waitlist-form-inline {
         max-width: 400px;
         margin: 0 auto;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    
+    .mobile-waitlist .waitlist-form-inline input {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: var(--white);
+    }
+    
+    .mobile-waitlist .waitlist-form-inline input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .mobile-waitlist .waitlist-form-inline button {
+        background: var(--primary);
+        color: var(--white);
+        border: none;
     }
 }
 
