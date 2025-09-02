@@ -830,17 +830,27 @@ body {
         padding: 0 1rem;
     }
     
-    /* Reorder mobile layout: visual first, then content */
-    .hero-visual {
+    /* Reorder mobile layout: content first, then visual, then waitlist */
+    .hero-content {
         order: 1;
+    }
+    
+    .hero-visual {
+        order: 2;
         margin-top: 0;
         margin-bottom: 2rem;
         display: flex;
         flex-direction: column;
     }
     
-    .hero-content {
-        order: 2;
+    /* Create separate waitlist section that appears last */
+    .hero-actions {
+        order: 3;
+        margin-top: 2rem;
+        margin-bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     .hero-title {
@@ -854,13 +864,12 @@ body {
         margin-bottom: 2rem;
     }
     
-    .hero-actions {
-        margin-bottom: 2rem;
-    }
+
     
     .waitlist-form-inline {
         max-width: 320px;
         padding: 0.75rem;
+        margin: 0 auto;
     }
     
     .waitlist-form-inline form {
@@ -1009,6 +1018,7 @@ body {
     .waitlist-form-inline {
         max-width: 280px;
         padding: 0.5rem;
+        margin: 0 auto;
     }
     
     .waitlist-form-inline input {
