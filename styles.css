@@ -1024,6 +1024,10 @@ body {
         background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.3);
         color: var(--white);
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+        border-radius: 8px;
     }
     
     .mobile-waitlist .waitlist-form-inline input::placeholder {
@@ -1034,6 +1038,11 @@ body {
         background: var(--primary);
         color: var(--white);
         border: none;
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+        border-radius: 8px;
+        font-weight: 600;
     }
 }
 
