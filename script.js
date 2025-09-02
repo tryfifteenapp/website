@@ -177,6 +177,9 @@ document.head.appendChild(style);
 
 // Enhanced scroll handling and animations
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if device is mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    
     // Smooth scrolling for all anchor links
     const links = document.querySelectorAll('a[href^="#"]');
     
@@ -213,8 +216,8 @@ document.addEventListener('DOMContentLoaded', function() {
             navbar.style.boxShadow = 'none';
         }
         
-        // Hide/show navbar on scroll (optional)
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Hide/show navbar on scroll (only on desktop)
+        if (!isMobile && currentScrollY > lastScrollY && currentScrollY > 100) {
             navbar.style.transform = 'translateY(-100%)';
         } else {
             navbar.style.transform = 'translateY(0)';
@@ -223,10 +226,10 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScrollY = currentScrollY;
     });
     
-    // Intersection Observer for animations
+    // Mobile-optimized intersection observer
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: isMobile ? 0.05 : 0.1,
+        rootMargin: isMobile ? '0px 0px -30px 0px' : '0px 0px -50px 0px'
     };
     
     const observer = new IntersectionObserver(function(entries) {
@@ -238,26 +241,72 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
     
-    // Observe elements for animation
+    // Observe elements for animation with mobile-optimized delays
     const animateElements = document.querySelectorAll('.feature-card, .hero-content, .hero-visual');
-    animateElements.forEach(el => {
+    animateElements.forEach((el, index) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.style.transition = `opacity 0.6s ease, transform 0.6s ease`;
+        
+        // Reduce animation delay on mobile for better performance
+        if (isMobile) {
+            el.style.transitionDelay = `${Math.min(index * 0.1, 0.3)}s`;
+        }
+        
         observer.observe(el);
     });
     
-    // Add hover effects to feature cards
-    const featureCards = document.querySelectorAll('.feature-card');
-    featureCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-8px) scale(1.02)';
+    // Enhanced hover effects (only on desktop)
+    if (!isMobile) {
+        const featureCards = document.querySelectorAll('.feature-card');
+        featureCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    }
+    
+    // Mobile touch optimizations
+    if (isMobile) {
+        // Improve touch targets
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.style.minHeight = '44px'; // iOS recommended minimum
         });
         
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
+        // Add touch feedback for mobile
+        const touchElements = document.querySelectorAll('.feature-card, .btn-primary, .btn-secondary');
+        touchElements.forEach(element => {
+            element.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+                this.style.transition = 'transform 0.1s ease';
+            });
+            
+            element.addEventListener('touchend', function() {
+                this.style.transform = 'scale(1)';
+                this.style.transition = 'transform 0.2s ease';
+            });
         });
-    });
+        
+        // Optimize scroll performance on mobile
+        let ticking = false;
+        function updateScroll() {
+            ticking = false;
+        }
+        
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateScroll);
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', requestTick, { passive: true });
+    }
     
     // Hero title animation is now handled by CSS for consistency
     // Removed typing effect to match the page-wide fadeInUp animation style

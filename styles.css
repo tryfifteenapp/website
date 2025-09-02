@@ -820,72 +820,233 @@ body {
 
 
 /* Responsive Design */
+/* Basic responsive design rules */
 @media (max-width: 768px) {
     .hero-container {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 2rem;
         text-align: center;
+        padding: 0 1rem;
     }
     
     .hero-title {
         font-size: 2.5rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-description {
+        font-size: 1.125rem;
+        margin-bottom: 2rem;
     }
     
     .hero-actions {
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
+        margin-bottom: 2rem;
     }
     
     .waitlist-form-inline {
+        max-width: 320px;
+        padding: 0.75rem;
+    }
+    
+    .waitlist-form-inline form {
         flex-direction: column;
+        gap: 0.75rem;
         width: 100%;
-        max-width: 300px;
     }
     
     .waitlist-form-inline input {
-        min-width: auto;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    
+    .waitlist-form-inline button {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    
+    .hero-visual {
+        margin-top: 1rem;
+    }
+    
+    .before-after-buttons {
+        position: relative;
+        top: 0;
+        left: auto;
+        transform: none;
+        margin-bottom: 1.5rem;
+        pointer-events: auto;
+    }
+    
+    .before-after-content {
+        margin-top: 0;
+        height: auto;
+        min-height: 400px;
+    }
+    
+    .placeholder-screenshot {
+        width: 100%;
+        max-width: 350px;
+        height: 350px;
+        margin: 0 auto;
+    }
+    
+    .iphone-frame {
+        max-width: 320px;
+        width: 100%;
+        margin: 0 auto;
+    }
+    
+    .iphone-screen {
+        min-height: 400px;
+    }
+    
+    .app-mockup {
         width: 100%;
     }
     
-    .form-group {
-        flex-direction: column;
+    .app-header {
+        padding: 0.75rem 1rem;
     }
     
-    .waitlist-stats {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+    .summary-section {
+        padding: 0.75rem 1rem;
     }
     
-    .footer-content {
-        flex-direction: column;
-        gap: 2rem;
-        text-align: center;
+    .summary-title {
+        font-size: 1.25rem;
     }
     
-    .nav-menu {
-        display: none;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 0 1rem;
+    .stats-grid {
+        gap: 0.75rem;
     }
     
-    .hero {
-        padding: 100px 0 60px;
+    .time-blocks-list {
+        padding: 0 1rem 1rem;
     }
     
-    .hero-title {
-        font-size: 2rem;
+    .time-block-item {
+        padding: 0.5rem;
+        min-height: 40px;
+    }
+    
+    .block-time {
+        min-width: 100px;
+        font-size: 0.75rem;
+    }
+    
+    .activity-name {
+        font-size: 0.75rem;
     }
     
     .features {
         padding: 60px 0;
     }
     
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .feature-card {
+        padding: 2rem 1.5rem;
+    }
+    
     .waitlist {
         padding: 60px 0;
+    }
+    
+    .waitlist h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 40px 0 40px;
+    }
+    
+    .hero-container {
+        padding: 0 0.75rem;
+        gap: 1.5rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+        line-height: 1.3;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-badge {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+    
+    .waitlist-form-inline {
+        max-width: 280px;
+        padding: 0.5rem;
+    }
+    
+    .waitlist-form-inline input {
+        padding: 0.875rem;
+        font-size: 0.875rem;
+    }
+    
+    .waitlist-form-inline button {
+        padding: 0.875rem;
+        font-size: 0.875rem;
+    }
+    
+    .placeholder-screenshot {
+        max-width: 300px;
+        height: 300px;
+    }
+    
+    .iphone-frame {
+        max-width: 280px;
+    }
+    
+    .iphone-screen {
+        min-height: 350px;
+    }
+    
+    .before-after-buttons {
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+    
+    .option-btn {
+        padding: 0.625rem 1.5rem;
+        font-size: 0.875rem;
+    }
+    
+    .features {
+        padding: 40px 0;
+    }
+    
+    .section-header h2 {
+        font-size: 1.75rem;
+    }
+    
+    .feature-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .waitlist {
+        padding: 40px 0;
+    }
+    
+    .waitlist h2 {
+        font-size: 1.75rem;
     }
 }
